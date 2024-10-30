@@ -1,0 +1,64 @@
+{% extends "teacher_base.html" %}
+
+{% block title %}
+Dashboard | Teacher Dashboard
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="container mt-4">
+        <h2>Teacher Dashboard</h2>
+
+        <!-- Teacher Details -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Teacher Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <img src="{{ user.teacher.profile_pic.url }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+                    </div>
+                    <div class="col-md-8">
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td>{{ user.get_full_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Faculty:</th>
+                                    <td>{{ user.teacher.faculty.faculty_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Department:</th>
+                                    <td>{{ user.teacher.department.dept_name }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Phone Number:</th>
+                                    <td>{{ user.teacher.phone_number }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email:</th>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exam Period Information -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Exam Period Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Current Exam Period:</strong> {{ exam_period }}</p>
+                <p><strong>Special Repeat Period:</strong> {{ special_repeat }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

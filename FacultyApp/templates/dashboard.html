@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | Faculty Admin Dashboard
+{% endblock title %}
+
+{% block content %}
+ <div class="content">
+    <div class="container">
+        <div class="container my-5">
+            <h1 class="text-center">Faculty Admin Dashboard</h1>
+            <hr>
+            <div class="row text-center">
+                <div class="col-md-6 mb-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5>Total Students</h5>
+                            <p class="display-4">{{ total_students }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5>Total Teachers</h5>
+                            <p class="display-4">{{ total_teachers }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-6 mb-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5>Total Courses</h5>
+                            <p class="display-4">{{ total_courses }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h5>Total Departments</h5>
+                            <p class="display-4">{{ total_departments }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row text-center">
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Current Exam Period</h5>
+                            <p>{{ exam_period }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Special Repeat Period</h5>
+                            <p>{{ special_repeat }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

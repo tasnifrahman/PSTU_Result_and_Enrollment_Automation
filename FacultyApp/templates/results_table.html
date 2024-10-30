@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Semester {{ semester.semester_number }} Result Calculation
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Results for Semester {{ semester.semester_number }}</h2>
+
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-{{ msg.tags }}">
+                <h5 class="alert-title">{{ msg }}</h5>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                {% for course in course_codes %}
+                    <th>{{ course.course_code }}</th>
+                {% endfor %}
+                <th>GPA</th>
+                <th>CGPA</th>
+                <th>Remark</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.student_id }}</td>
+                    {% for key, value in result.marks.items %}
+                        <td>{{ value.grade_point }}</td> 
+                    {% endfor %}
+                    <td>{{ result.gpa }}</td>
+                    <td>{{ result.cgpa }}</td>
+                    {% if result.remark == "Passed" %}
+                        <td style="background-color: green; color: white">
+                            {{ result.remark }} <br>
+                            {% for course in result.failed_courses %}
+                                {{ course }},
+                            {% endfor %}
+                    {% elif result.remark == "Conditional Passed" %}
+                        <td style="background-color: rgb(208, 153, 52); color: white">
+                            {{ result.remark }} <br>
+                            {% for course in result.failed_courses %}
+                                {{ course }},
+                            {% endfor %}
+                        </td>
+                    {% elif result.remark == "Failed" %}
+                        <td style="background-color: red; color: white">{{ result.remark }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'FacultyApp:all_student_PDF_generate' semester.semester_number %}" class="btn btn-primary mb-3">
+        All Student PDF Generate
+    </a>
+    <a href="{% url 'FacultyApp:conditional_passed_student_PDF_generate' semester.semester_number %}" class="btn btn-secondary mb-3">
+        Conditional Passed Student PDF Generate
+    </a>
+
+    {% if exam_period == 'F-Removal' and semester.semester_number != last_semester %}
+        <a href="{% url 'FacultyApp:promote_to_next_semester' semester.semester_number %}" class="btn btn-outline-success mb-3">
+            Promote To next Semester
+        </a>
+    {% endif %}
+
+    {% if semester.semester_number == last_semester %}
+        <a href="{% url "FacultyApp:special_repeat_exam_PDF_generate" last_semester %}" class="btn btn-info mb-3">
+            Special Repeat Info PDF
+        </a>
+    {% endif %}
+
+    {% if semester.semester_number == last_semester %}
+        <a href="{% url "FacultyApp:merit_list_PDF_generate" last_semester %}" class="btn btn-outline-success mb-3">
+            Merit List
+        </a>
+    {% endif %}
+</div>
+{% endblock %}
